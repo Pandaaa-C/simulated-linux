@@ -21,7 +21,7 @@
   },
   {
     "name": "find",
-    "description": "Find files and directories",
+    "description": "Find files in certain paths",
     "usage": "find <path> -name <filename> -type <filetype>"
   },
   {

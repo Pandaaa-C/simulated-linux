@@ -17,6 +17,7 @@ export async function executeCommand(name: string, path: string): Promise<Callba
   } else if (name === "sudo vim") {
     return sudoVimCommand();
   }
+
   const command = commandsConfig.find((c) => c.name == args[0]);
   if (!command) {
     return {
@@ -32,6 +33,7 @@ export async function executeCommand(name: string, path: string): Promise<Callba
     case "help": return helpCommand(path);
     case "cat": return catCommand(path, args);
     case "cd": return cdCommand(args[1]);
+    case "find": return findCommand(path, args);
   }
 
   return {
@@ -152,7 +154,7 @@ function cdCommand(path: string): Callback {
       response: [""]
     }
   }
-  
+
   if (!cdPaths.includes(path)) {
     return {
       command: "cd " + path,
@@ -181,5 +183,52 @@ function sudoVimCommand(): Callback {
     command: "sudo vim",
     path: "/",
     response: ["Vim: Warning: Input is not from a terminal"]
+  }
+}
+
+function findCommand(path: string, args: string[]): Callback {
+  const command = commandsConfig.find(x => x.name === "find");
+  if (!command) {
+    return {
+      command: "find",
+      path: path,
+      response: ["Command not found: find"]
+    }
+  }
+  const pathToFind = args[1];
+  const fileSerach = args[2];
+  const fileToFind = args[3];
+  const fileExtensionSearch = args[4];
+  const fileExtensionToFind = args[5];
+
+  const flag = flagConfig.find(x => x.id === "find");
+  if (!flag) {
+    return {
+      command: "find " + pathToFind + " " + fileSerach + " " + fileToFind + " " + fileExtensionSearch + " " + fileExtensionToFind,
+      path: path,
+      response: [`No flag found`]
+    }
+  }
+
+  if (pathToFind !== "/" || fileSerach !== "-name" || fileExtensionSearch !== "-type") {
+    return {
+      command: "find",
+      path: path,
+      response: ["find: missing arguments. Usage: " + command.usage]
+    }
+  }
+
+  if (fileToFind === "flag" && (fileExtensionToFind === "txt" || fileExtensionToFind === ".txt")) {
+    return {
+      command: "find " + pathToFind + " " + fileSerach + " " + fileToFind + " " + fileExtensionSearch + " " + fileExtensionToFind,
+      path: path,
+      response: [`${flag.content}`, `/root/flag.txt`, `/flag.txt`, `/usr/sbin/getrickrolled/flag.txt`]
+    }
+  }
+
+  return {
+    command: "find ",
+    path: path,
+    response: ["find: : No such file or directory"]
   }
 }
