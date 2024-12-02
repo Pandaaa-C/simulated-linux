@@ -6,5 +6,25 @@
   {
     "id": "ls",
     "content": "bsdc-ls{Listlikeagod}"
+  },
+  {
+    "id": "cd",
+    "content": "bsdc-cd{Changelikeagod}"
+  },
+  {
+    "id": "find",
+    "content": "bsdc-find{Findlikeagod}"
+  },
+  {
+    "id": "sudo -l",
+    "content": "bsdc-sudo{Runlikeagod}"
+  },
+  {
+    "id": "clear",
+    "content": "bsdc-clear{Clearlikeagod}"
+  },
+  {
+    "id": "vim",
+    "content": "bsdc-vim{Editlikeagod}"
   }
 ]

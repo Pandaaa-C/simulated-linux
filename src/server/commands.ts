@@ -12,6 +12,11 @@ type Callback = {
 
 export async function executeCommand(name: string, path: string): Promise<Callback> {
   const args = name.split(" ");
+  if (name === "sudo -l") {
+    return sudoLCommand(path);
+  } else if (name === "sudo vim") {
+    return sudoVimCommand();
+  }
   const command = commandsConfig.find((c) => c.name == args[0]);
   if (!command) {
     return {
@@ -94,7 +99,7 @@ function catCommand(path: string, args: string[]): Callback {
     }
   }
 
-  const existingFiles = ["index.html", "style.css", "script.js", "flag.txt"];
+  const existingFiles = ["index.html", "style.css", "script.js", "flag.txt", "passwd"];
 
   if (args.length > 1) {
     const flag = flagConfig.find(x => x.id === args[0]);
@@ -163,3 +168,18 @@ function cdCommand(path: string): Callback {
   }
 }
 
+function sudoLCommand(path: string): Callback {
+  return {
+    command: "sudo -l",
+    path: path,
+    response: ["User 'user' may run the following commands on local:", "  (ALL) NOPASSWD: /usr/bin/vim"]
+  }
+}
+
+function sudoVimCommand(): Callback {
+  return {
+    command: "sudo vim",
+    path: "/",
+    response: ["Vim: Warning: Input is not from a terminal"]
+  }
+}

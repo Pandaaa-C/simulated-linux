@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { executeCommand } from "@/server/commands";
 import { useEffect, useRef, useState } from "react";
+import VimPage from "../app/vim/page";
+import { useRouter } from "next/navigation";
 
 type CommandResponses = {
   command: string;
@@ -11,6 +13,7 @@ type CommandResponses = {
 };
 
 export default function ShellPage() {
+  const router = useRouter();
   const [command, setCommand] = useState<string>("");
   const [responses, setResponses] = useState<CommandResponses[]>([]);
   const [path, setPath] = useState<string>("/");
@@ -25,12 +28,16 @@ export default function ShellPage() {
       setResponses([]);
       return;
     }
-    if (response.path == " " || response.path == null || response.path == undefined || response.response[0].startsWith("No such file or directory")) {
+    if (response.path == " " || response.path == null || response.path == undefined || response.response[0].startsWith("No such file or directory ")) {
       setPath("/");
     } else if (!response.path.startsWith("/")) {
       setPath("/");
     } else {
       setPath(response.path);
+    }
+
+    if (response.command == "sudo vim") {
+      router.push("/vim");
     }
 
     setResponses((prev) => [...prev, response]);
