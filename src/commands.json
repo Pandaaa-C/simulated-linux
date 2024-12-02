@@ -1,0 +1,37 @@
+[
+  {
+    "name": "ls",
+    "description": "List files and directories in the current directory",
+    "usage": "ls <file/directory>"
+  },
+  {
+    "name": "cat",
+    "description": "Print the contents of a file",
+    "usage": "cat <file>"
+  },
+  {
+    "name": "help",
+    "description": "List all available commands",
+    "usage": "help"
+  },
+  {
+    "name": "cd",
+    "description": "Change the current directory",
+    "usage": "cd <directory>"
+  },
+  {
+    "name": "find",
+    "description": "Find files and directories",
+    "usage": "find <path> -name <filename> -type <filetype>"
+  },
+  {
+    "name": "sudo -l",
+    "description": "List available sudo commands for the current user",
+    "usage": "sudo -l"
+  },
+  {
+    "name": "clear",
+    "description": "Clear the terminal screen",
+    "usage": "clear"
+  }
+]
