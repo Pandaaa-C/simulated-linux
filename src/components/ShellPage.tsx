@@ -6,22 +6,31 @@ import { useEffect, useRef, useState } from "react";
 
 type CommandResponses = {
   command: string;
+  path: string;
   response: string[];
 };
 
 export default function ShellPage() {
   const [command, setCommand] = useState<string>("");
   const [responses, setResponses] = useState<CommandResponses[]>([]);
+  const [path, setPath] = useState<string>("/");
   const responsesEndRef = useRef<HTMLDivElement | null>(null);
 
   const onSubmit = async () => {
     if (command.length <= 0) return;
     setCommand("");
 
-    const response = await executeCommand(command);
+    const response = await executeCommand(command, path);
     if (response.command === "clear") {
       setResponses([]);
       return;
+    }
+    if (response.path == " " || response.path == null || response.path == undefined || response.response[0].startsWith("No such file or directory")) {
+      setPath("/");
+    } else if (!response.path.startsWith("/")) {
+      setPath("/");
+    } else {
+      setPath(response.path);
     }
 
     setResponses((prev) => [...prev, response]);
@@ -46,7 +55,7 @@ export default function ShellPage() {
           <div>
             {responses.map((response, index) => (
               <div key={index}>
-                <p><b>[user@local]$</b> {response.command}</p>
+                <p><b>[user@local {response.path}]$</b> {response.command}</p>
                 {
                   response.response.map((res, i) => (
                     <p
@@ -67,7 +76,7 @@ export default function ShellPage() {
         </div>
         <div className={cn("h-[10%] max-h-[10%] w-full flex items-center")}>
           <p>
-            <b>[user@local]$</b>{" "}
+            <b>[user@local {path}]$</b>{" "}
           </p>
           <input
             type="text"
@@ -75,7 +84,7 @@ export default function ShellPage() {
             value={command}
             onChange={(e) => setCommand(e.target.value)}
             className={cn(
-              "h-[50%] w-[90%] bg-transparent px-2 border-none outline-none"
+              "h-[50%] w-[85%] bg-transparent px-2 border-none outline-none"
             )}
             onKeyDown={(e) => keyHandle(e)}
           />

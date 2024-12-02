@@ -1,0 +1,49 @@
+[
+  {
+    "name": "flag.txt",
+    "content": [
+      "this could be another flag"
+    ]
+  },
+  {
+    "name": "index.html",
+    "content": [
+      "<!DOCTYPE html>",
+      "<html>",
+      "<head>",
+      "  <title>My Website</title>",
+      "</head>",
+      "<body>",
+      "  <h1>Welcome to my website!</h1>",
+      "</body>",
+      "</html>"
+    ]
+  },
+  {
+    "name": "style.css",
+    "content": [
+      "* {",
+      "  margin: 0;",
+      "  padding: 0;",
+      "}"
+    ]
+  },
+  {
+    "name": "script.js",
+    "content": [
+      "console.log('Hello, world!');"
+    ]
+  },
+  {
+    "name": "passwd",
+    "content": [
+      "root:x:0:0:root:/root:/bin/bash",
+      "daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin",
+      "bin:x:2:2:bin:/bin:/usr/sbin/nologin",
+      "sys:x:3:3:sys:/dev:/usr/sbin/nologin",
+      "sync:x:4:65534:sync:/bin:/bin/sync",
+      "games:x:5:60:games:/usr/games:/usr/sbin",
+      "user:x:1000:1000:user:/home/user:/bin/bash"
+    ]
+  }
+]

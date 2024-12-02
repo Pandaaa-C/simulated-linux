@@ -2,60 +2,81 @@
 
 import commandsConfig from "@/commands.json";
 import flagConfig from "@/flags.json";
+import fileContentConfig from "@/file-content.json";
 
 type Callback = {
   command: string;
   response: string[];
+  path: string;
 }
 
-export async function executeCommand(name: string): Promise<Callback> {
+export async function executeCommand(name: string, path: string): Promise<Callback> {
   const args = name.split(" ");
   const command = commandsConfig.find((c) => c.name == args[0]);
   if (!command) {
     return {
       command: name,
+      path: path,
       response: [`Command not found: ${name}`],
     }
   }
 
   switch (args[0]) {
-    case "ls": return lsCommand();
-    case "clear": return clearCommand();
-    case "help": return helpCommand();
-    case "cat": return catCommand(args);
+    case "ls": return lsCommand(path);
+    case "clear": return clearCommand(path);
+    case "help": return helpCommand(path);
+    case "cat": return catCommand(path, args);
+    case "cd": return cdCommand(args[1]);
   }
 
   return {
     command: name,
+    path: path,
     response: ["Executed command: " + name],
   };
 }
 
-function lsCommand(): Callback {
+function getFilesByPath(path: string): string[] {
+  if (path === "/") {
+    return ["index.html", "style.css", "script.js", "flag.txt"];
+  }
+
+  if (path === "/etc" || path === "/etc/") {
+    return ["passwd"];
+  }
+
+  return [];
+}
+
+function lsCommand(path: string): Callback {
   const flag = flagConfig.find(x => x.id === "ls");
   if (flag) {
     return {
       command: "ls",
-      response: [`${flag.content}`, `index.html   style.css   script.js   flag.txt`],
+      path: path,
+      response: [`${flag.content}`, ...getFilesByPath(path)],
     };
   }
 
   return {
     command: "ls",
-    response: [`index.html   style.css   script.js    flag.txt`],
+    path: path,
+    response: getFilesByPath(path),
   };
 }
 
-function clearCommand(): Callback {
+function clearCommand(path: string): Callback {
   return {
     command: "clear",
+    path: path,
     response: [""],
   };
 }
 
-function helpCommand(): Callback {
+function helpCommand(path: string): Callback {
   return {
     command: "help",
+    path: path,
     response: [
       "Available commands:",
       ...commandsConfig.map((command) => `  ${command.name}  |  ${command.description}  |  Usage: ${command.usage}`),
@@ -63,11 +84,12 @@ function helpCommand(): Callback {
   }
 }
 
-function catCommand(args: string[]): Callback {
+function catCommand(path: string, args: string[]): Callback {
   const command = commandsConfig.find(x => x.name === "cat");
   if (!command) {
     return {
       command: "cat",
+      path: path,
       response: ["Command not found: cat"]
     }
   }
@@ -79,19 +101,65 @@ function catCommand(args: string[]): Callback {
     if (!flag || !existingFiles.includes(args[1])) {
       return {
         command: "cat " + args[1],
+        path: path,
         response: ["No such file or directory"]
+      }
+    }
+
+    const fileContent = fileContentConfig.find(x => x.name === args[1]);
+    if (!fileContent) {
+      return {
+        command: "cat " + args[1],
+        path: path,
+        response: ["File not found"]
       }
     }
 
     return {
       command: "cat " + args[1],
-      response: [`${flag?.content}`]
+      path: path,
+      response: [`${flag?.content}`, ...fileContent.content]
     }
   }
 
   return {
     command: "cat",
+    path: path,
     response: [command.usage]
+  }
+}
+
+const cdPaths = ["/", "/etc", "/etc/"];
+
+function cdCommand(path: string): Callback {
+  if (path === null || path === undefined) {
+    return {
+      command: "cd",
+      path: path,
+      response: [""]
+    }
+  }
+
+  if (!path.startsWith("/") || !path) {
+    return {
+      command: "cd",
+      path: path,
+      response: [""]
+    }
+  }
+  
+  if (!cdPaths.includes(path)) {
+    return {
+      command: "cd " + path,
+      path: "/",
+      response: ["No such file or directory"]
+    }
+  }
+
+  return {
+    command: "cd " + path,
+    path: path,
+    response: [""]
   }
 }
 
