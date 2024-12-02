@@ -1,30 +1,30 @@
 [
   {
     "id": "cat",
-    "content": "bsdc-cat{Readlikeagod}"
+    "content": "BSDC{CAT-SKILLS}"
   },
   {
     "id": "ls",
-    "content": "bsdc-ls{Listlikeagod}"
+    "content": "BSDC{LIST-GOD}"
   },
   {
     "id": "cd",
-    "content": "bsdc-cd{Changelikeagod}"
+    "content": "BSDC{MASTER-OF-CHANGING}"
   },
   {
     "id": "find",
-    "content": "bsdc-find{Findlikeagod}"
+    "content": "BSDC{GOOD_EYES_IS_KEY}"
   },
   {
     "id": "sudo -l",
-    "content": "bsdc-sudo{Runlikeagod}"
+    "content": "BSDC{RUN-THE-FORBIDDEN}"
   },
   {
     "id": "clear",
-    "content": "bsdc-clear{Clearlikeagod}"
+    "content": "BSDC{CLEAR-MIND}"
   },
   {
     "id": "vim",
-    "content": "bsdc-vim{Editlikeagod}"
+    "content": "BSDC{ESCALATION-OF-POWER}"
   }
 ]
