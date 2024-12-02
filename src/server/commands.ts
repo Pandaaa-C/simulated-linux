@@ -58,12 +58,20 @@ function helpCommand(): Callback {
     command: "help",
     response: [
       "Available commands:",
-      ...commandsConfig.map((command) => `  ${command.name}  |  ${command.description}`)
+      ...commandsConfig.map((command) => `  ${command.name}  |  ${command.description}  |  Usage: ${command.usage}`),
     ]
   }
 }
 
 function catCommand(args: string[]): Callback {
+  const command = commandsConfig.find(x => x.name === "cat");
+  if (!command) {
+    return {
+      command: "cat",
+      response: ["Command not found: cat"]
+    }
+  }
+
   const existingFiles = ["index.html", "style.css", "script.js", "flag.txt"];
 
   if (args.length > 1) {
@@ -83,7 +91,7 @@ function catCommand(args: string[]): Callback {
 
   return {
     command: "cat",
-    response: ["Usage: cat <file>"]
+    response: [command.usage]
   }
 }
 
