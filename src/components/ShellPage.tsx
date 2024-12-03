@@ -62,7 +62,7 @@ export default function ShellPage() {
                     <p
                       key={i}
                       className={cn(
-                        res.startsWith("Command not found:")
+                        (res.startsWith("Command not found:") || res.startsWith("No such file or directory"))
                           ? "text-red-800"
                           : "text-white"
                       )}

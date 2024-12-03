@@ -36,6 +36,7 @@ export async function executeCommand(name: string, path: string): Promise<Callba
     case "find": return findCommand(path, args);
     case "vim": await vimCommand(); break;
     case "sudo": return await sudoLCommand(path, args[1]);
+    case "whoami": return whoAmICommand(path);
   }
 
   return {
@@ -47,14 +48,17 @@ export async function executeCommand(name: string, path: string): Promise<Callba
 
 function getFilesByPath(path: string, more: boolean): string[] {
   if (path === "/" && more) {
-    return ["-rw-rw-r-- 1 user user 20 index.html", "-rw-rw-r-x 1 user user 152 style.css", "-rx-rw-rw- 1 user user 1 script.js", "-r--r--r-- 1 root root 2 flag.txt", "-rwxr-xr-x 1 root root 1943 get-all-flags.sh"];
+    return ["-rw-rw-r-- 1 user user 20 index.html", "-rw-rw-r-x 1 user user 152 style.css", "-rx-rw-rw- 1 user user 1 script.js", "-r--r--r-- 1 root root 2 ultrasecretfilethatshouldnotexist.txt", "-rwxr-xr-x 1 root root 1943 get-all-flags.sh"];
   }
 
   if (path === "/") {
-    return ["index.html", "style.css", "script.js", "flag.txt", "get-all-flags.sh"];
+    return ["index.html", "style.css", "script.js", "ultrasecretfilethatshouldnotexist.txt", "get-all-flags.sh"];
   }
 
   if (path === "/etc" || path === "/etc/") {
+    if (more) {
+      return ["-rw-r--r-- 1 root root 1476 passwd"];
+    }
     return ["passwd"];
   }
 
@@ -108,7 +112,7 @@ function catCommand(path: string, args: string[]): Callback {
     }
   }
 
-  const existingFiles = ["index.html", "style.css", "script.js", "flag.txt", "passwd", "get-all-flags.sh"];
+  const existingFiles = ["index.html", "style.css", "script.js", "ultrasecretfilethatshouldnotexist.txt", "passwd", "get-all-flags.sh"];
 
   if (args.length > 1) {
     const flag = flagConfig.find(x => x.id === args[0]);
@@ -250,5 +254,13 @@ function findCommand(path: string, args: string[]): Callback {
     command: "find ",
     path: path,
     response: ["find: : No such file or directory", ""]
+  }
+}
+
+function whoAmICommand(path: string): Callback {
+  return {
+    command: "whoami",
+    path: path,
+    response: ["user", ""]
   }
 }

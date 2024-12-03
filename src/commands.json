@@ -38,5 +38,10 @@
     "name": "vim",
     "description": "Open the Vim text editor",
     "usage": "vim <file>"
+  },
+  {
+    "name": "whoami",
+    "description": "Check the current executing user",
+    "usage": "whoami"
   }
 ]
