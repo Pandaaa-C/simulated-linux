@@ -23,7 +23,7 @@ export async function executeCommand(name: string, path: string): Promise<Callba
     return {
       command: name,
       path: path,
-      response: [`Command not found: ${name}`, ""],
+      response: [`Command not found: ${name}`, "Don't forget that this is a simulation, so not all commands are available. "],
     }
   }
 
