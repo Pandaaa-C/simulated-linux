@@ -2,7 +2,29 @@
   {
     "name": "flag.txt",
     "content": [
-      "BSDC{W3LC0M3-T0-TH3-W3BS1T3}"
+      "Could you get me a Caeser 19' pizza from that CyberChef pizza hut down the alley? It was sooooo gut!",
+      "Oh, if possible with a Tomato Base from 1964 :)",
+      "And please dont get the order wrong like the last time... first the base and then the caesar toppings...",
+      "Since you have asked for my BSDC-Coin Wallet address, here it is:",
+      "as=HL=Rm0NcvHbMS68L2yc9G0ta5Wc5m51d3XeJg"
+    ]
+  },
+  {
+    "name": "get-all-flags.sh",
+    "content": [
+      "#!/bin/bash",
+      "clear",
+      "echo '========================'",
+      "echo '    Welcome to Bash!   '",
+      "echo '========================'",
+      "sleep 1",
+      "echo ''",
+      "echo 'Fetching something cool...'",
+      "for i in {1..5}; do",
+      "  echo -n '.'; sleep 0.5",
+      "done",
+      "echo ''",
+      "echo '🎉 All done! Hack the Planet! Stay Safe! 🎉'"
     ]
   },
   {
@@ -11,28 +33,21 @@
       "<!DOCTYPE html>",
       "<html>",
       "<head>",
-      "  <title>My Website</title>",
+      "<title>My Website</title>",
       "</head>",
       "<body>",
-      "  <h1>Welcome to my website!</h1>",
+      "<h1>Welcome to my website!</h1>",
       "</body>",
       "</html>"
     ]
   },
   {
     "name": "style.css",
-    "content": [
-      "* {",
-      "  margin: 0;",
-      "  padding: 0;",
-      "}"
-    ]
+    "content": ["* {", "  margin: 0;", "  padding: 0;", "}"]
   },
   {
     "name": "script.js",
-    "content": [
-      "console.log('Hello, world!');"
-    ]
+    "content": ["console.log('Hello, world!');"]
   },
   {
     "name": "passwd",

@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { executeVimCommand } from "@/server/vim";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function VimPage() {
   const router = useRouter();
@@ -12,10 +12,12 @@ export default function VimPage() {
 
   const onSubmit = async () => {
     if (command.length <= 0) return;
+
     setCommand("");
 
     const response = await executeVimCommand(command);
     if (response.flag === "exit") {
+      localStorage.clear();
       router.push("/");
     }
 
@@ -32,18 +34,19 @@ export default function VimPage() {
 
   return (
     <div className={cn("min-h-screen p-10")}>
-      <div className={cn("h-[700px] bg-[#36454F] p-2 rounded flex flex-col overflow-hidden")}>
+      <div className={cn("h-[700px] bg-[#1E1E1E] p-2 rounded flex flex-col overflow-hidden")}>
         <div className={cn("flex-1 overflow-y-auto flex flex-col-reverse")}>
           <p>VIM EDITOR!</p>
           <p>{flag}</p>
         </div>
         <div className={cn("h-[10%] max-h-[10%] w-full flex items-center")}>
           <p>
-            {" "}
+            {"$ "}
           </p>
           <input
             type="text"
             placeholder=""
+            autoFocus
             value={command}
             onChange={(e) => setCommand(e.target.value)}
             className={cn(

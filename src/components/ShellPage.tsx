@@ -3,8 +3,6 @@
 import { cn } from "@/lib/utils";
 import { executeCommand } from "@/server/commands";
 import { useEffect, useRef, useState } from "react";
-import VimPage from "../app/vim/page";
-import { useRouter } from "next/navigation";
 
 type CommandResponses = {
   command: string;
@@ -13,7 +11,6 @@ type CommandResponses = {
 };
 
 export default function ShellPage() {
-  const router = useRouter();
   const [command, setCommand] = useState<string>("");
   const [responses, setResponses] = useState<CommandResponses[]>([]);
   const [path, setPath] = useState<string>("/");
@@ -21,6 +18,7 @@ export default function ShellPage() {
 
   const onSubmit = async () => {
     if (command.length <= 0) return;
+
     setCommand("");
 
     const response = await executeCommand(command, path);
@@ -34,10 +32,6 @@ export default function ShellPage() {
       setPath("/");
     } else {
       setPath(response.path);
-    }
-
-    if (response.command == "sudo vim") {
-      router.push("/vim");
     }
 
     setResponses((prev) => [...prev, response]);
@@ -57,7 +51,7 @@ export default function ShellPage() {
 
   return (
     <div className={cn("min-h-screen p-10")}>
-      <div className={cn("h-[700px] bg-[#36454F] p-2 rounded flex flex-col overflow-hidden")}>
+      <div className={cn("h-[700px] bg-[#1E1E1E] p-2 rounded flex flex-col overflow-hidden")}>
         <div className={cn("flex-1 overflow-y-auto flex flex-col-reverse")}>
           <div>
             {responses.map((response, index) => (
@@ -88,6 +82,7 @@ export default function ShellPage() {
           <input
             type="text"
             placeholder=""
+            autoFocus
             value={command}
             onChange={(e) => setCommand(e.target.value)}
             className={cn(

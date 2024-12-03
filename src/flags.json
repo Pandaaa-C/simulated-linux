@@ -25,6 +25,10 @@
   },
   {
     "id": "vim",
+    "content": "BSDC{EDIT-MASTER}"
+  },
+  {
+    "id": "vim_escalate",
     "content": "BSDC{ESCALATION-OF-POWER}"
   }
 ]

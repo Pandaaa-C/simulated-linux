@@ -25,13 +25,18 @@
     "usage": "find <path> -name <filename> -type <filetype>"
   },
   {
-    "name": "sudo -l",
-    "description": "List available sudo commands for the current user",
-    "usage": "sudo -l"
+    "name": "sudo",
+    "description": "Execute commands as the super user",
+    "usage": "sudo <command>"
   },
   {
     "name": "clear",
     "description": "Clear the terminal screen",
     "usage": "clear"
+  },
+  {
+    "name": "vim",
+    "description": "Open the Vim text editor",
+    "usage": "vim <file>"
   }
 ]
