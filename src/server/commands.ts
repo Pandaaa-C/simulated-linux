@@ -16,7 +16,27 @@ const vim_sudo_user = "G2CHF1maHG697HyToeYI";
 const vim_shell_set = "lGe4SyLgNb90aZLuusy2";
 const trueVal = "fr5ruWd851frHjSB61y5";
 
+const trollCommands = [
+  {
+    name: "michaellynch",
+    response: ["Why would you type that?", "But damn.... That is impressive!!!", "Good thinking outside the box! kudos!", "But this time he ain't mean something for this lol"],
+  },
+  {
+    name: "courtneydonovan",
+    response: ["Like.. What?", "What you do milosof? *grunt*", "Our server might be running on a server, but not on a cloud server..", "So we definitely dont need a Cloud Technician today, but maybe in the future haha"],
+  },
+]
+
 export async function executeCommand(name: string, path: string): Promise<Callback> {
+  const trollCommand = trollCommands.find((c) => c.name == name);
+  if (trollCommand) {
+    return {
+      command: trollCommand.name,
+      path: path,
+      response: trollCommand.response,
+    }
+  }
+
   const args = name.split(" ");
   const command = commandsConfig.find((c) => c.name == args[0]);
   if (!command) {
@@ -95,6 +115,9 @@ function helpCommand(path: string): Callback {
     command: "help",
     path: path,
     response: [
+      "GNU bash, version 1.3.3(7)-preprerelease (x256_512-pc-linsim-1.0)",
+      "These shell commands are defined internally.  Type 'help' to see this list and only this list.",
+      "---",
       "Available commands:",
       ...commandsConfig.map((command) => `  ${command.name}  |  ${command.description}  |  Usage: ${command.usage}`)
       , ""
