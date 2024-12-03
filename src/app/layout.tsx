@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fira_Code } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const fireCode = Fira_Code({
   weight: '400',
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${fireCode.className} antialiased`}
+        className={cn(`${fireCode.className} antialiased`, "text-sm")}
       >
         {children}
       </body>
